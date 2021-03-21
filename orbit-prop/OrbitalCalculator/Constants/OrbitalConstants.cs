@@ -1,10 +1,10 @@
 using System;
-using OrbitalCalculator.Constants;
+using OrbitalCalculator.Services.Constants;
 //0.0010826269, -0.0000025323,
 namespace OrbitalCalculator.Constants
 {
 
-    public class OrbitalConstants
+    public static class OrbitalConstants
     {
         public static double J2(string planet="earth"){
             return PlanetaryConstants.getPlanet(planet).grav_harmonics[0];

@@ -1,6 +1,6 @@
 using System;
 
-namespace OrbitalCalculator.Constants
+namespace OrbitalCalculator.Services.Constants
 {
     public struct PlanetBody {
         public double radius;
