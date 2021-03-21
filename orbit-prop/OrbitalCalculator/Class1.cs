@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace OrbitalLibrary
+namespace OrbitalCalculator.Services
 {
-    public static class position
+    public static class Position
     {
         /// <summary>
         /// Get orbital position in future
@@ -15,12 +15,12 @@ namespace OrbitalLibrary
             return STDGravitationParm(63710000,86400);
         }
     
-        public static double STDGravitationParm(double majorAxis, double period){
-            double u = 4*Math.Pow(Math.PI,2)*Math.Pow(majorAxis,3);
+        public static double STDGravitationParm(double majorAxis_M, double period){
+            double u = 4*Math.Pow(Math.PI,2)*Math.Pow(majorAxis_M,3);
             return u/(Math.Pow(period,2));
         }
-        public static double OrbitalPeriod(double gravitationPram,double majorAxis){
-            double t = 2*Math.PI*Math.Sqrt(Math.Pow(majorAxis,3)/gravitationPram);
+        public static double OrbitalPeriod(double gravitationPram,double majorAxis_M){
+            double t = 2*Math.PI*Math.Sqrt(Math.Pow(majorAxis_M,3)/gravitationPram);
             return t;
         }
     }

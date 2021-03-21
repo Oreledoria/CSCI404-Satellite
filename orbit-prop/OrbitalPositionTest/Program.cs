@@ -1,5 +1,5 @@
 ﻿using System;
-using OrbitalLibrary;
+using OrbitalCalculator.Services;
 
 class Program
 {
@@ -13,7 +13,7 @@ class Program
                 ResetConsole();
 
             string input = Console.ReadLine();
-            Console.WriteLine($"{OrbitalLibrary.position.OrbitalPosition(1,34,9.8)}");
+            Console.WriteLine($"{Position.OrbitalPosition(1,34,9.8)}");
             row += 1;
         } while (true);
         return;
