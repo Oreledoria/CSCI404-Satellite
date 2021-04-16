@@ -1,27 +1,21 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using SGPdotNET.CoordinateSystem;
+using SGPdotNET.Observation;
+using SGPdotNET.TLE;
+using SGPdotNET.Util;
 namespace OrbitalCalculator.Services
 {
-    public static class Position
+    public static class Collisions
     {
-        /// <summary>
-        /// Get orbital position in future
-        /// </summary>
-        /// <param name="time">time from when data is collected</param>
-        /// <param name="v">velocity</param>
-        /// <param name="g">gravity</param>
-        /// <returns>position in pollar relative to earth</returns>
-        public static double OrbitalPosition(double time,double v,double g){
-            return STDGravitationParm(63710000,86400);
+        public static List<Intersects> FindCollisions(List<Satellite> bodies,Satellite your_satilites, double max_look_ahead){
+            List<Intersects> test = new List<Intersects>(); 
+            test.Add(new Intersects());
+            return test;
         }
-    
-        public static double STDGravitationParm(double majorAxis_M, double period){
-            double u = 4*Math.Pow(Math.PI,2)*Math.Pow(majorAxis_M,3);
-            return u/(Math.Pow(period,2));
-        }
-        public static double OrbitalPeriod(double gravitationPram,double majorAxis_M){
-            double t = 2*Math.PI*Math.Sqrt(Math.Pow(majorAxis_M,3)/gravitationPram);
-            return t;
-        }
+    }
+    public class Intersects{
+        public string satilite_name = "test";
+        public double time = 23;
     }
 }
