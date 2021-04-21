@@ -11,7 +11,7 @@ namespace OrbitalCalculator.Services
 {
     public static class Collisions
     {
-        public static List<Intersects> FindCollisions(List<Satellite> bodies,Satellite your_satilites, double max_look_ahead,int scale=1){
+        public static List<Intersects> FindCollisions(List<Satellite> bodies,Satellite your_satilites, double max_look_ahead,int scale=3600){
             List<Intersects> test = new List<Intersects>(); 
             DateTime[] times = new DateTime[(int)max_look_ahead*scale];
             List<EciCoordinate> target_positions = new List<EciCoordinate>();
@@ -21,6 +21,7 @@ namespace OrbitalCalculator.Services
                 times[i] = times[i].AddSeconds((int)(i*(3600/scale)));
                 target_positions.Add(your_satilites.Predict(times[i]));
             }
+            Console.WriteLine($"Samples: {times.Length} ∆t: {times[2].Subtract(times[1])}");
             List<Thread> ts = new List<Thread>();
             foreach (var item in bodies)
             {
@@ -37,7 +38,7 @@ namespace OrbitalCalculator.Services
             }
             foreach (var item in test)
             {
-                    Console.WriteLine($"{item.satilite_name}U{your_satilites.Name}@{item.time}");
+                    // Console.WriteLine($"{item.satilite_name}U{your_satilites.Name}@{item.time}");
             }
             // test.Add(new Intersects());
             return test;

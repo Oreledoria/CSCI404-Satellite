@@ -30,7 +30,6 @@ class Program
                     var l1 = lines[i];
                     var l2 = lines[i+1];
                     var l3 = lines[i+2];
-                    Console.WriteLine(l1);
                     satellites.Add(new Satellite(l1,l2,l3));
                 }
                 // Read the stream as a string, and write the string to the console.
@@ -40,15 +39,13 @@ class Program
             Console.WriteLine("The file could not be read:");
             Console.WriteLine(e.Message);
         }
-        do
-        {
             if (row == 0 || row >= 25)
                 ResetConsole();
             watch.Reset();
-            string input = Console.ReadLine();
-            var tle1 = "OSCAR 7 (AO-7)";
-            var tle2 = "1 07530U 74089B   21109.52896997 -.00000021  00000-0  15479-3 0  9994";
-            var tle3 = "2 07530 101.8495  84.1057 0012449 133.9749 340.4105 12.53648309124584";
+            // string input = Console.ReadLine();
+            var tle1 = "ISS (ZARYA)";
+            var tle2 = "1 25544U 98067A   21110.94942367  .00002318  00000-0  50363-4 0  9994";
+            var tle3 = "2 25544  51.6450 265.8312 0002499 256.1557 247.4086 15.48913248279728";
             watch.Start();
             // Create a satellite from the TLEs
             var sat = new Satellite(tle1, tle2, tle3);
@@ -61,7 +58,6 @@ class Program
             watch.Stop();
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms With: {satellites.Count}");
             row += 1;
-        } while (true);
         return;
 
         // Declare a ResetConsole local method
