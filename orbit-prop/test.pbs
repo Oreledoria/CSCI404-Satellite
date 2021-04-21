@@ -1,0 +1,14 @@
+#! /bin/bash
+#PBS -q default
+#PBS -l select=1:mem=4gb:ncpus=16
+#PBS -l walltime=08:00:00
+#PBS -N sat
+#PBS -W group_list=x-ccast-prj-ndusek
+#PBS -o test.out
+#PBS -e test.err
+#PBS -m abe
+#PBS -M conner.reitmeier@ndus.edu
+
+cd $PBS_O_WORKDIR/
+spack load dotnet-core-sdk
+dotnet OrbitalPositionTest/bin/Debug/netcoreapp2.1/OrbitalPositionTest.dll 
