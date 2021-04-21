@@ -11,7 +11,7 @@ namespace OrbitalCalculator.Services
 {
     public static class Collisions
     {
-        public static List<Intersects> FindCollisions(List<Satellite> bodies,Satellite your_satilites, double max_look_ahead,int scale=3600){
+        public static List<Intersects> FindCollisions(List<Satellite> bodies,Satellite your_satilites, double max_look_ahead,int scale=1800){
             List<Intersects> test = new List<Intersects>(); 
             DateTime[] times = new DateTime[(int)max_look_ahead*scale];
             List<EciCoordinate> target_positions = new List<EciCoordinate>();
