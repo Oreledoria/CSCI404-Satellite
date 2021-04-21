@@ -36,11 +36,6 @@ namespace OrbitalCalculator.Services
             {
                 item.Join();
             }
-            foreach (var item in test)
-            {
-                    // Console.WriteLine($"{item.satilite_name}U{your_satilites.Name}@{item.time}");
-            }
-            // test.Add(new Intersects());
             return test;
         }
         public static List<Intersects> t_find(List<EciCoordinate> positions,int location_count, DateTime[] times, Satellite target,double range){

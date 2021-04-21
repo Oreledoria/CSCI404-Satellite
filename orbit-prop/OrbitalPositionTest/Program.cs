@@ -43,19 +43,21 @@ class Program
                 ResetConsole();
             watch.Reset();
             // string input = Console.ReadLine();
-            var tle1 = "ISS (ZARYA)";
-            var tle2 = "1 25544U 98067A   21110.94942367  .00002318  00000-0  50363-4 0  9994";
-            var tle3 = "2 25544  51.6450 265.8312 0002499 256.1557 247.4086 15.48913248279728";
+            var tle1 = "INTEGRAL";
+            var tle2 = "1 27540U 02048A   21109.41033731  .00000165  00000-0  00000+0 0  9998";
+            var tle3 = "2 27540  62.5459  89.0166 8994899 298.7327   1.6996  0.37571334 19548";
             watch.Start();
             // Create a satellite from the TLEs
             var sat = new Satellite(tle1, tle2, tle3);
             // Set up our ground station location
             // Create a ground station
-            // Observe the satellite
-            
-            var observation = sat.Predict();
-            OrbitalCalculator.Services.Collisions.FindCollisions(satellites,sat,24*7*52);
+            // Observe the satellite     
+            var collions = OrbitalCalculator.Services.Collisions.FindCollisions(satellites,sat,2,60);
             watch.Stop();
+            foreach (var item in collions)
+            {
+                Console.WriteLine($"{item.satilite_name}U{sat.Name}@{item.time}");
+            }
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms With: {satellites.Count}");
             row += 1;
         return;
