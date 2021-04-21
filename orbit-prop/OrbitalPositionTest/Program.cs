@@ -54,7 +54,7 @@ class Program
             // Observe the satellite
             
             var observation = sat.Predict();
-            OrbitalCalculator.Services.Collisions.FindCollisions(satellites,sat,24);
+            OrbitalCalculator.Services.Collisions.FindCollisions(satellites,sat,24*7*52);
             watch.Stop();
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms With: {satellites.Count}");
             row += 1;
