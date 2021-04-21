@@ -46,20 +46,18 @@ class Program
                 ResetConsole();
             watch.Reset();
             string input = Console.ReadLine();
-            var tle1 = "ISS (ZARYA)";
-            var tle2 = "1 25544U 98067A   19034.73310439  .00001974  00000-0  38215-4 0  9991";
-            var tle3 = "2 25544  51.6436 304.9146 0005074 348.4622  36.8575 15.53228055154526";
+            var tle1 = "OSCAR 7 (AO-7)";
+            var tle2 = "1 07530U 74089B   21109.52896997 -.00000021  00000-0  15479-3 0  9994";
+            var tle3 = "2 07530 101.8495  84.1057 0012449 133.9749 340.4105 12.53648309124584";
             watch.Start();
-            for (int i = 0; i < 5000; i++)
-            {
-                // Create a satellite from the TLEs
-                var sat = new Satellite(tle1, tle2, tle3);
-                // Set up our ground station location
-                // Create a ground station
-                // Observe the satellite
-                
-                var observation = sat.Predict();
-            }
+            // Create a satellite from the TLEs
+            var sat = new Satellite(tle1, tle2, tle3);
+            // Set up our ground station location
+            // Create a ground station
+            // Observe the satellite
+            
+            var observation = sat.Predict();
+            OrbitalCalculator.Services.Collisions.FindCollisions(satellites,sat,24);
             watch.Stop();
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms With: {satellites.Count}");
             row += 1;
