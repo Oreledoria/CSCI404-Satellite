@@ -17,19 +17,24 @@ class Program
     {
         int row = 0;
         var watch = new System.Diagnostics.Stopwatch();
+        
         var satellites = new List<Satellite>();
         try
         {
             // Open the text file using a stream reader.
 
-                var file = new StreamReader("OrbitalPositionTest/data/all.tle").ReadToEnd(); // big string
+                var file = new StreamReader("D:/404 Satellites/orbit-prop/OrbitalPositionTest/data/all.tle").ReadToEnd(); // big string
                 var lines = file.Split(new char[] {'\n'});           // big array
                 var count = lines.Count();
                 for (int i = 0; i < count; i+=3)
                 {
-                    var l1 = lines[i];
-                    var l2 = lines[i+1];
-                    var l3 = lines[i+2];
+                var l1 = lines[i];
+                var l2 = lines[i + 1];
+                var l3 = lines[i + 2];
+                Console.WriteLine(l1);
+                Console.WriteLine(l2);
+                Console.WriteLine(l3);
+                Console.WriteLine("Right before the error.");
                     satellites.Add(new Satellite(l1,l2,l3));
                 }
                 // Read the stream as a string, and write the string to the console.
@@ -57,6 +62,7 @@ class Program
             foreach (var item in collions)
             {
                 Console.WriteLine($"{item.satilite_name}U{sat.Name}@{item.time}");
+                
             }
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms With: {satellites.Count}");
             row += 1;
@@ -73,6 +79,29 @@ class Program
             // Console.Clear();
             // Console.WriteLine($"{Environment.NewLine}Press <Enter> only to exit; otherwise, enter a string and press <Enter>:{Environment.NewLine}");
             // row = 3;
-        }
+        }        
     }
+
+    /*Compare two satellites.
+        @firstSat is the satellite being tested in the main method above.
+        @secondSat is a satellite that @firstSat has reported colliding with.
+        @satList should be the satellites list from the main method
+    */
+    public Boolean satelliteCompare(Satellite firstSat, Satellite secondSat, List<Satellite> satList)
+    {
+
+        var collisions = OrbitalCalculator.Services.Collisions.FindCollisions(satList, secondSat, 2, 60);
+        foreach (var item in collisions)
+        {
+            //If a collision occurs with a satellite whose name is equal to the first satellite's, write to console and return true.
+            if (item.satilite_name == firstSat.Name)
+            {
+                Console.WriteLine($"{item.satilite_name}U{secondSat.Name}@{item.time}");
+                return true;
+            }
+            
+        }
+        return false;
+    }
+
 }
