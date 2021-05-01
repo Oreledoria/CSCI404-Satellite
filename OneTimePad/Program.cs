@@ -8,35 +8,71 @@ namespace OneTimePad
     {
         static void Main(string[] args)
         {
-            var messageFile = new StreamReader("D:/404 Test Files/TestingMethods/TestingMethods/message.txt").ReadToEnd();
-            Console.WriteLine("Beginning Message:");
+            Console.WriteLine("Enter a text file. (DO NOT include the .txt extension)");
+            var input = Console.ReadLine();
+            var messageFile = new StreamReader("D:/404 Satellites/OneTimePad/" + input +".txt").ReadToEnd();
+            Console.WriteLine("\nBeginning Message:");
             Console.WriteLine(messageFile + "\n");
             // Converting text to bytes, assuming unicode.
             byte[] originalBytes = Encoding.Unicode.GetBytes(messageFile);
 
+            Console.WriteLine("Select an Option:\n" +
+                "1. encrypt my file\n" +
+                "2. decrypt my file\n" +
+                "3. all\n");
+            var methodinput = Console.ReadLine();
+
             // generate a pad in memory.
             byte[] pad = GeneratePad(size: originalBytes.Length, seed: 1);
-
             // I'm going to display these bytes in Base64, but one would
             // probably save them to a file; this is the Pad (or "key").
-            Console.WriteLine("The one time pad.");
-            Console.WriteLine(Convert.ToBase64String(inArray: pad) + "\n");
+            var OTP = Convert.ToBase64String(inArray: pad);
+
 
             // We encrypt the bytes by adding our noise.
             byte[] encrypted = Encrypt(originalBytes, pad);
             // again, displaying in base64, but you would typically save
             // these to a file too; this is your encrypted "file" or message.
             var encryptito = Convert.ToBase64String(inArray: encrypted);
-            Console.WriteLine("Encrypted Message:");
-            Console.WriteLine(encryptito + "\n");
+
             byte[] encryptedFromBase64 = Convert.FromBase64String(encryptito);
 
             // decrypting the encoded message using the key made up of noise.
             byte[] decrypted = Decrypt(encryptedFromBase64, pad);
 
-            // displaying the original unencrypted message.
-            Console.WriteLine("The decrypted message.");
-            Console.WriteLine(Encoding.Unicode.GetString(decrypted) + "\n");
+            if (methodinput == "encrypt" | methodinput == "1")
+            {
+                Console.WriteLine("The one time pad.");
+                Console.WriteLine(OTP + "\n");
+                File.WriteAllTextAsync("D:/404 Satellites/OneTimePad/One Time Pad.txt", OTP);
+
+                Console.WriteLine("Encrypted Message:");
+                Console.WriteLine(encryptito + "\n");
+                File.WriteAllTextAsync("D:/404 Satellites/OneTimePad/" + input + "-encrypted.txt", encryptito);
+            }
+            else if (methodinput == "decrypt" | methodinput == "2")
+            {
+                // displaying the original unencrypted message.
+                Console.WriteLine("The decrypted message.");
+                Console.WriteLine(Encoding.Unicode.GetString(decrypted) + "\n");
+            }
+            else if (methodinput == "all" | methodinput == "3")
+            {
+                Console.WriteLine("The one time pad.");
+                Console.WriteLine(OTP + "\n");
+                File.WriteAllTextAsync("D:/404 Satellites/OneTimePad/One Time Pad.txt", OTP);
+
+                Console.WriteLine("Encrypted Message:");
+                Console.WriteLine(encryptito + "\n");
+                File.WriteAllTextAsync("D:/404 Satellites/OneTimePad/" + input + "-encrypted.txt", encryptito);
+
+                // displaying the original unencrypted message.
+                Console.WriteLine("The decrypted message.");
+                Console.WriteLine(Encoding.Unicode.GetString(decrypted) + "\n");
+            }
+            
+            
+            
         }
 
         public static byte[] GeneratePad(int size, int seed)
